@@ -27,7 +27,7 @@ fi
 
 
 filename=$(echo $link | sed 's/\// /g' | awk '{print $4}')
-cur_names=$(find . -maxdepth 1 -name "$filename\_.*" | wc -l)
+cur_names=$(find . -maxdepth 1 -name "$filename*" | wc -l | sed 's/ //g')
 spacer
 
 mkdir tmp
@@ -44,6 +44,6 @@ echo -e "${G}Full download succesfull${NC}"
 spacer
 
 echo "Starting cbz file creation"
-find tmp -maxdepth 1 -name '*jpeg' -exec zip -q -m ${filename}.cbz {} \;
+find tmp -maxdepth 1 -name '*jpeg' -exec zip -q -m "${filename}_$cur_names".cbz {} \;
 rm -rf tmp/
 echo "Finished, enjoy"
